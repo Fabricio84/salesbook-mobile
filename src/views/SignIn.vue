@@ -6,19 +6,48 @@
 		<main>
 			<div>
 				<label>Email</label>
-				<input type="email" />	
+				<input type="email" v-model="email" />	
 			</div>
 			<div>
 				<label>Senha</label>
-				<input type="password" />	
+				<input type="password" v-model="password" />	
 			</div>
 
 			<div>
-				<button type="button">Entrar</button>	
+				<button type="button" @click="authenticate">Entrar</button>	
 			</div>
 		</main>
 	</section>
 </template>
+
+<script>
+import api from './services/api.js'
+
+export default {
+  name: 'SignIn',
+  data () {
+  	return {
+  		email: '',
+  		password: '',
+  		role: 'admin'
+  	}
+  },
+  computed: {
+  	payload () {
+  		return {
+  			email: this.email,
+  			password: this.password,
+  			role: this.role
+  		}
+  	}
+  },
+  methods: {
+  	autenticate () {
+  		const token = await api.get('/login', { ...this.payload })
+  	}
+  }
+}
+</script>
 
 <style scoped>
 	header {
