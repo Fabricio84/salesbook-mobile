@@ -1,16 +1,11 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <SignIn />
+  <router-view></router-view>
 </template>
 
 <script>
-import SignIn from './views/SignIn.vue'
-
 export default {
-  name: 'App',
-  components: {
-    SignIn
-  }
+  name: 'App'
 }
 </script>
 
