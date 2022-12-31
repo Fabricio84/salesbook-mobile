@@ -18,33 +18,39 @@
 			</div>
 		</main>
 	</section>
-</template>
+</template> 
 
 <script>
-import api from './services/api.js'
-
+import api from '../services/api.js'
 export default {
   name: 'SignIn',
   data () {
-  	return {
-  		email: '',
-  		password: '',
-  		role: 'admin'
-  	}
+    return {
+  	  email: '',
+  	  password: '',
+  	  role: 'admin'
+    } 
   },
   computed: {
-  	payload () {
-  		return {
-  			email: this.email,
-  			password: this.password,
-  			role: this.role
+    payload () {
+  	  return {
+  		  email: this.email,
+  		  password: this.password,
+  		  role: this.role
   		}
   	}
   },
   methods: {
-  	autenticate () {
-  		const token = await api.get('/login', { ...this.payload })
-  	}
+    async authenticate () {
+  	  const response = await api.post('/login', { ...this.payload })
+  	  if (response.status === 200) {
+  		  const { accessToken } = response.data
+
+  		  this.$store.commit('setToken', accessToken)
+
+  		  alert(this.$store.state.token)
+  	  }
+    }
   }
 }
 </script>
