@@ -50,7 +50,7 @@ export default {
   	  }
   	  
   		this.$store.commit('setToken', response.data.accessToken)
-  		this.$router.push('home')
+  		this.$router.push('/home')
     }
   }
 }
