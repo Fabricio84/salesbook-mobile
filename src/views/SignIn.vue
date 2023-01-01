@@ -43,13 +43,14 @@ export default {
   methods: {
     async authenticate () {
   	  const response = await api.post('/login', { ...this.payload })
-  	  if (response.status === 200) {
-  		  const { accessToken } = response.data
 
-  		  this.$store.commit('setToken', accessToken)
-
-  		  alert(this.$store.state.token)
+  	  if (response.status !== 200) {
+  	  	alert('Usuário ou senha incorreta!')
+  	  	return
   	  }
+  	  
+  		this.$store.commit('setToken', response.data.accessToken)
+  		this.$router.push('home')
     }
   }
 }
